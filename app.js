@@ -5,10 +5,11 @@ const app=express()
 // middleware
 
 
-app.use(addActiveTime =(req, res, next)=> {
-    let requestAt= new Date().getHours()
+time =(req, res, next)=> {
+    let hour= new Date().getHours()
+    let day= new Date().getDay()
     
-  if((requestAt<=9)||(requestAt>=17))
+  if(((hour<=9)||(hour>=17))||((day<=1)||(day>=5)))
   {
     res.sendFile(__dirname + '/access.html')
   }
@@ -17,9 +18,9 @@ app.use(addActiveTime =(req, res, next)=> {
       next()
     
   }
-    })
+    }
 
-
+app.use(time)
 app.use(express.static('front-end'))
 
 
